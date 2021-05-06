@@ -21,3 +21,20 @@ print(movies.columns)
 
 # 데이터 저장
 # movies.to_csv('Z:\RecommendationSystem\data\ml_latest_small/save_testData.csv')
+
+# 개봉연도 데이터 정제하기 (데이터 전처리, PreProcessing)
+print(movies['title'].str.extract('(\(\d\d\d\d\))')) #연도 숫자4개 추출하기
+
+movies['year'] = movies['title'].str.extract('(\(\d\d\d\d\))')
+
+# 괄호를 제외한 날짜만 추출
+movies['year'] = movies['year'].str.extract('(\d\d\d\d)')
+print(movies)
+
+# 중복된 값들 제외
+print(movies['year'].unique())
+
+# NAN 결측값 핸들링하기
+print(movies[movies['year'].isnull()]) # 결측값 추출
+movies['year'] = movies['year'].fillna('2050') # Nan을 2050으로 대체
+print(movies['year'].unique())
