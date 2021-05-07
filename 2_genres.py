@@ -7,6 +7,7 @@ print(movies['genres'])
 
 sample_genre = movies['genres'][1]
 sample_genre.split("|") #장르 쪼개기
+# print(sample_genre)
 
 # 장르 모두 split 적용
 genres_list = list(movies['genres'].apply(lambda x:x.split("|")))
@@ -19,3 +20,20 @@ for sublist in genres_list:
         flat_list.append(item)
 genres_unique = list(set(flat_list)) #중복값 삭제
 print(len(genres_unique)-1) # No genre_list 제외.
+
+#장르 데이터 숫자형으로 변환하기
+message = 'Hello'
+print('H' in message) #True
+print('Adventure' in sample_genre) #True
+print(movies['genres'].apply(lambda x: 'Adventure' in x))
+
+# if Avdenture -> True else False
+movies['Adventure'] = movies['genres'].apply(lambda x: 'Adventure' in x)
+movies['Comedy'] = movies['genres'].apply(lambda x: 'Comedy' in x)
+
+# 모든 영화에 대한 장르에 따른 0,1 변환 -> pandas 제공
+print(movies['genres'].str.get_dummies(sep='|'))
+genres_dummies = movies['genres'].str.get_dummies(sep='|')
+
+# genres_dummies 저장 (pickle는 인덱스까지 저장하므로 유용함.)
+genres_dummies.to_pickle('Z:\RecommendationSystem\data\ml_latest_small/genres.p')
