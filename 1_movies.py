@@ -38,3 +38,11 @@ print(movies['year'].unique())
 print(movies[movies['year'].isnull()]) # 결측값 추출
 movies['year'] = movies['year'].fillna('2050') # Nan을 2050으로 대체
 print(movies['year'].unique())
+
+# 데이터에 가장 많이 출현하는 개봉연도를 찾아주세요.
+# print(movies['year'].value_counts()) # 데이터숫자의 내림차순으로 연도가 정리
+import seaborn as sns
+import matplotlib.pyplot as plt # seaborn figure 크기 조절을 위함.
+plt.figure(figsize=(30, 5))
+sns.countplot(data=movies, x='year')
+plt.show()
