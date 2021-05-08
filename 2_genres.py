@@ -36,4 +36,13 @@ print(movies['genres'].str.get_dummies(sep='|'))
 genres_dummies = movies['genres'].str.get_dummies(sep='|')
 
 # genres_dummies 저장 (pickle는 인덱스까지 저장하므로 유용함.)
-genres_dummies.to_pickle('Z:\RecommendationSystem\data\ml_latest_small/genres.p')
+# genres_dummies.to_pickle('Z:\RecommendationSystem\data\ml_latest_small/genres.p')
+
+# 두 장르의 관계가 1에 가깝다는 것은 : 두 장르가 자주 같이 출현
+# 두 장르의 관계가 -1에 가깝다는 것은 : 두 장르가 아주 드물게 출현, 겹치는 영역이 없음.
+import seaborn as sns
+import matplotlib.pyplot as plt # seaborn figure 크기 조절을 위함.
+
+plt.figure(figsize=(30,15))
+sns.heatmap(genres_dummies.corr(), annot=True) #seaborn의 heatmap 이용
+plt.show()
